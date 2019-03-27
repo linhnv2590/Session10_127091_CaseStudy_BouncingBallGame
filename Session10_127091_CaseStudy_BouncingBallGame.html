@@ -52,7 +52,6 @@
         }
     }
 
-
     // Draw Bar
     function Bar() {
         this.x = 200;
@@ -63,8 +62,8 @@
 
         this.renderBar = function () {
             let context = canvas.getContext('2d');
-            context.clearRect(this.x -20, this.y, canvas.width, canvas.height);
-            context.clearRect(this.x +20, this.y, canvas.width, canvas.height);
+            context.clearRect(this.x - 20, this.y, canvas.width, canvas.height);
+            context.clearRect(this.x + 20, this.y, canvas.width, canvas.height);
             context.fillRect(this.x, this.y, this.width, this.height);
         }
     }
