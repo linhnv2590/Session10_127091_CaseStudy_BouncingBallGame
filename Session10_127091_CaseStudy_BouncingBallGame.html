@@ -21,8 +21,14 @@
             context.clearRect(0, 0, canvas.width, canvas.height);
             this.bar.renderBar();
             this.ball.renderBall();
-            if (this.ball.y === this.bar.y) {
-                alert('aaa');
+
+            // Boundary Logic
+            let isBouncingY = (this.ball.y == (this.bar.y - (this.ball.radius / 2)));
+            let isBouncingX = ((this.ball.x > this.bar.x) && (this.ball.x < (this.bar.x + this.bar.width)));
+
+            if (isBouncingX && isBouncingY){
+                this.ball.dx = -(this.ball.dx);
+                this.ball.dy = -(this.ball.dy);
             }
         }
     }
@@ -40,7 +46,7 @@
             // Draw Ball
             let context = canvas.getContext('2d');
             context.beginPath();
-            context.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+            context.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
             context.fill();
         };
 
