@@ -13,7 +13,7 @@
 
     // Draw Board
     function Board() {
-        this.ball = new Ball();
+        this.ball = new Ball(this);
         this.bar = new Bar();
 
         this.renderBoard = function () {
@@ -21,16 +21,20 @@
             context.clearRect(0, 0, canvas.width, canvas.height);
             this.bar.renderBar();
             this.ball.renderBall();
+            if (this.ball.y === this.bar.y) {
+                alert('aaa');
+            }
         }
     }
 
     // Draw Ball
-    function Ball() {
+    function Ball(board) {
         this.x = 50; // Ball left coordinate
         this.y = 50; // Ball top coordinate
         this.radius = 10;
         this.dx = 5; // Ball increment left coordinate by an amount of dx
         this.dy = 5; // Ball increment left coordinate by an amount of dy
+        this.board = board;
 
         this.renderBall = function () {
             // Draw Ball
@@ -38,7 +42,9 @@
             context.beginPath();
             context.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
             context.fill();
+        };
 
+        this.moveBall = function () {
             // Boundary Logic
             if (this.x < 0 || this.x > canvas.width)
                 this.dx = -(this.dx);
@@ -49,23 +55,26 @@
             // Change Coordinate
             this.x += this.dx;
             this.y += this.dy;
+
+            this.board.renderBoard();
         }
     }
 
     // Draw Bar
-    function Bar() {
+    function Bar(board) {
         this.x = 200;
         this.y = 300;
         this.width = 80;
         this.height = 20;
         this.speed = 20;
+        this.board = board;
 
         this.renderBar = function () {
             let context = canvas.getContext('2d');
             context.clearRect(this.x - 20, this.y, canvas.width, canvas.height);
             context.clearRect(this.x + 20, this.y, canvas.width, canvas.height);
             context.fillRect(this.x, this.y, this.width, this.height);
-        }
+        };
     }
 
     // Function Keydown
@@ -101,7 +110,7 @@
 
     function init() {
         setInterval(function () {
-            board.renderBoard();
+            board.ball.moveBall();
         }, 20);
         window.addEventListener('keydown', moveSelection);
     }
