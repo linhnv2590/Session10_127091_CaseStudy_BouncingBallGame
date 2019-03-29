@@ -22,6 +22,8 @@
         this.bar = new Bar();
 
         this.renderBoard = function () {
+            document.getElementById("showScore").innerHTML = "Your Score = " + this.count;
+
             let context = canvas.getContext('2d');
             context.clearRect(0, 0, canvas.width, canvas.height);
             this.bar.renderBar();
@@ -148,8 +150,6 @@
         board.ball.y = 50;
         board.count = 0;
         board.renderBoard();
-        init();
-        log("render new board");
     }
 </script>
 </body>
