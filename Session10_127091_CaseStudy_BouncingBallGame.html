@@ -7,9 +7,11 @@
 <body>
 <h1>Bouncing Ball Game</h1>
 <canvas height="400" id="myCanvas" style="border:1px solid #d3d3d3" width="500"></canvas>
+<div id="showScore">Your Score = 0</div>
 <script>
     let log = console.log;
     let canvas = document.getElementById('myCanvas');
+    let count = 0;
 
     // Draw Board
     function Board() {
@@ -26,9 +28,14 @@
             let isBouncingY = (this.ball.y == (this.bar.y - (this.ball.radius / 2)));
             let isBouncingX = ((this.ball.x > this.bar.x) && (this.ball.x < (this.bar.x + this.bar.width)));
 
-            if (isBouncingX && isBouncingY){
-                this.ball.dx = -(this.ball.dx);
-                this.ball.dy = -(this.ball.dy);
+            // Math.floor(Math.random()*(max-min+1)+min) to change Ball Coordinate
+            if (isBouncingX && isBouncingY) {
+                this.ball.dx = -(Math.random() * 3 + 6);
+                this.ball.dy = -(Math.random() * 3 + 6);
+                log(this.ball.dx);
+                log(this.ball.dy);
+                count++;
+                document.getElementById("showScore").innerHTML = "Your Score = " + count;
             }
         }
     }
@@ -72,13 +79,13 @@
         this.y = 300;
         this.width = 80;
         this.height = 20;
-        this.speed = 20;
+        this.speed = 40;
         this.board = board;
 
         this.renderBar = function () {
             let context = canvas.getContext('2d');
-            context.clearRect(this.x - 20, this.y, canvas.width, canvas.height);
-            context.clearRect(this.x + 20, this.y, canvas.width, canvas.height);
+            context.clearRect(this.x - this.speed, this.y, this.width, this.height);
+            context.clearRect(this.x + this.speed, this.y, this.width, this.height);
             context.fillRect(this.x, this.y, this.width, this.height);
         };
     }
@@ -116,7 +123,9 @@
 
     function init() {
         setInterval(function () {
-            board.ball.moveBall();
+            if (board.ball.y < canvas.height) {
+                board.ball.moveBall();
+            }
         }, 20);
         window.addEventListener('keydown', moveSelection);
     }
