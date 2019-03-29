@@ -15,6 +15,7 @@
 <script>
     let log = console.log;
     let canvas = document.getElementById('myCanvas');
+
     // Draw Board
     function Board() {
         this.count = 0;
@@ -129,7 +130,7 @@
     var setIn;
 
     function init() {
-        setIn =  setInterval(function () {
+        setIn = setInterval(function () {
             if (board.ball.y < canvas.height - board.ball.radius) {
                 board.ball.moveBall();
                 log("Moving");
@@ -146,9 +147,12 @@
     }
 
     function resetGame() {
+        board.count = 0;
         board.ball.x = 50;
         board.ball.y = 50;
-        board.count = 0;
+        board.bar.x = 200;
+        board.bar.y = 300;
+
         board.renderBoard();
     }
 </script>
