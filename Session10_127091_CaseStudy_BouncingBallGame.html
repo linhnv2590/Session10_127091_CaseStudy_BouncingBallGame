@@ -86,7 +86,6 @@
         this.width = 80;
         this.height = 20;
         this.speed = 40;
-        this.board = board;
 
         this.renderBar = function () {
             let context = canvas.getContext('2d');
@@ -127,10 +126,9 @@
     // Init Board
     let board = new Board();
     board.renderBoard();
-    var setIn;
 
     function init() {
-        setIn = setInterval(function () {
+        setInterval(function () {
             if (board.ball.y < canvas.height - board.ball.radius) {
                 board.ball.moveBall();
                 log("Moving");
@@ -150,6 +148,8 @@
         board.count = 0;
         board.ball.x = 50;
         board.ball.y = 50;
+        board.ball.dx = 5;
+        board.ball.dy = 5;
         board.bar.x = 200;
         board.bar.y = 300;
 
